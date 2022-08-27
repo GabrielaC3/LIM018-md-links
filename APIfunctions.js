@@ -30,7 +30,7 @@ const convertAbsolutePath = (ruta) => {
 const getExt = (file) => path.extname(file);
 
 //Verifica si la ruta es un directorio
-const pathIsAdirectory = (ruta) => fs.lstatSync(ruta).isDirectory();
+const pathIsADir = (ruta) => fs.lstatSync(ruta).isDirectory();
 
 const getLinks = (file) => {
   const renderer = new marked.Renderer();
@@ -51,12 +51,14 @@ const getLinks = (file) => {
   return arrayOnlyUrl;
 }
 
+const arrayLinks = getLinks('./archivosPrueba/link1.md');
+
 const validateStatus = (arrayLinks) => {
   return Promise.all( arrayLinks.map((link) => 
    axios.get(link.href)
     .then((resolve)=>{
       link.status = resolve.status,
-      link.ok= (resolve.status >= 200) && (resolve.status < 400) ? 'ok' :'fail';
+      link.ok= 'ok';
       return link;
         })
    .catch((error) => {
@@ -66,6 +68,10 @@ const validateStatus = (arrayLinks) => {
     })
   ))
 }
+/* validateStatus(arrayLinks)
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err)); */
+
 
 //Recorre directorios y encuentra archivos md (recursiva)
 const findFiles = (ruta) => {
@@ -73,7 +79,7 @@ const findFiles = (ruta) => {
     const arrayDirectory = readDir(ruta);
     for(let i=0; i<arrayDirectory.length; i++) {
       const routeList = joinPath(ruta, arrayDirectory[i]);
-      if(pathIsAdirectory(routeList)){
+      if(pathIsADir(routeList)){
           let continueFindFiles = findFiles(routeList);
           arrayFiles = arrayFiles.concat(continueFindFiles)
       }
@@ -83,6 +89,8 @@ const findFiles = (ruta) => {
     }
   return arrayFiles;
 }
+//const arrayFiles = findFiles('./archivosPrueba');
+//console.log(arrayFiles);
 
 const getLinksOfDir = (arrayFiles) => {
   const linksObtenidos = [];
@@ -93,11 +101,13 @@ const getLinksOfDir = (arrayFiles) => {
   return linksObtenidos.flat();
 }
 
+//console.log(getLinksOfDir(arrayFiles));
+
 module.exports = {
   pathExist,
   convertAbsolutePath,
   getExt,
-  pathIsAdirectory,
+  pathIsADir,
   findFiles,
   readDir,
   getLinks,

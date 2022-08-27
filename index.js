@@ -2,7 +2,7 @@ const {
   pathExist,
   convertAbsolutePath,
   getExt,
-  pathIsAdirectory,
+  pathIsADir,
   findFiles,
   readDir,
   validateStatus,
@@ -15,12 +15,12 @@ const mdLinks = (path, validateOptions = { validate: false }) => {
     let links = [];
     if (pathExist(path)){
       const pathAbsolute = convertAbsolutePath(path);
-        if(pathIsAdirectory(pathAbsolute)){
+        if(pathIsADir(pathAbsolute)){
           const arrayFiles = findFiles(pathAbsolute);
           if (arrayFiles){
             links= getLinksOfDir(arrayFiles);
           }
-        }else if(getExt(pathAbsolute)==='.md'){
+        }if(getExt(pathAbsolute)==='.md'){
             links= getLinks(pathAbsolute);
           }else {
             reject('La ruta no contiene archivos md');
@@ -40,6 +40,8 @@ const mdLinks = (path, validateOptions = { validate: false }) => {
   });
 }
 
+module.exports= { mdLinks };
+
 //'C:/Users/USER/Laboratoria-Proyectos/LIM018-md-links/archivosPrueba'
 
 /* mdLinks('./archivosPrueba', { validate: true })
@@ -50,13 +52,17 @@ const mdLinks = (path, validateOptions = { validate: false }) => {
   .then((res) => console.log(res))
   .catch((err) => console.log(err)); */
 
+/* mdLinks('./archivosPrueba/archivo2')
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err)); */
+
 /* mdLinks('./archivosPrueba/archivo1', { validate: true })
   .then((res) => console.log(res))
   .catch((err) => console.log(err)); */
 
-mdLinks('README.md', { validate: true })
+/* mdLinks('README.md', { validate: true })
   .then((res) => console.log(res))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err)); */
 
 /* mdLinks('archivotxt.txt')
   .then((res) => console.log(res))
