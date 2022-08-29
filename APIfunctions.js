@@ -51,7 +51,8 @@ const getLinks = (file) => {
   return arrayOnlyUrl;
 }
 
-const arrayLinks = getLinks('./archivosPrueba/link1.md');
+const arrayLinks = getLinks('./archivosPrueba/archivo1/link3.md');
+//console.log(arrayLinks);
 
 const validateStatus = (arrayLinks) => {
   return Promise.all( arrayLinks.map((link) => 
@@ -68,10 +69,10 @@ const validateStatus = (arrayLinks) => {
     })
   ))
 }
+
 /* validateStatus(arrayLinks)
   .then((res) => console.log(res))
   .catch((err) => console.log(err)); */
-
 
 //Recorre directorios y encuentra archivos md (recursiva)
 const findFiles = (ruta) => {

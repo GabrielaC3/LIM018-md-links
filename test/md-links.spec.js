@@ -9,8 +9,9 @@ const {
   getLinksOfDir,
 } = require('../APIfunctions.js');
 
-const axios = jest.createMockFromModule('axios').default;
-//import mockAxios from 'jest-mock-axios';
+const axios = require ('axios');
+jest.mock('axios');
+
 const { mdLinks } = require('../index.js');
 
 describe('pathExist', () => {
@@ -140,58 +141,53 @@ describe('getLinksOfDir', () => {
   });
 });
 
-const statusOk = [{
-  href: 'https://nodejs.org/es/',
-  text: 'Node.js',
-  file: './archivosPrueba/link1.md',
-  status: 200,
-  ok: 'ok'
-    }];
+const arrayLinksError=[
+  {
+    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
+    text: 'Funciones — bloques de código reutilizables - MDN',
+    file: './archivosPrueba/archivo1/link3.md'
+  }
+];
 
-const statusFail = [{
-      href: 'https://www.google.com/404', 
-      text: 'https://www.google.com/404',
-      file: 'C:\\Users\\USER\\Desktop\\LIM017-md-links\\prueba3.md',
-      status: 'Este link esta roto AxiosError: Request failed with status code 404',
-      ok: 'fail'
-  }]
-describe('getLinksStatus', () => {
+describe('validateStatus', () => {
   it('Valida el estado de los links resueltos', () => {
-      axios.mockImplementation(() => Promise.resolve([{
-        href: 'https://nodejs.org/es/',
-        text: 'Node.js',
-        file: './archivosPrueba/link1.md',
-        status: 200,
-        ok: 'ok'
-          }]))
-          return validateStatus ([{
-            href: 'https://nodejs.org/es/',
-            text: 'Node.js',
-            file: './archivosPrueba/link1.md',
-            status: 200,
-            ok: 'ok'
-          }])
-       .then((data) => {expect(data).toEqual(statusOk)})   
+          const linksPrueba = [
+            {
+              href: 'https://nodejs.org/es/',   
+              text: 'Node.js',
+              file: './archivosPrueba/link1.md',
+              status: 200,
+              ok: 'ok'
+            },
+            {
+              href: 'https://developers.google.com/v8/',
+              text: 'motor de JavaScript V8 de Chrome',
+              file: './archivosPrueba/link1.md',
+              status: 200,
+              ok: 'ok'
+            }
+          ];
+    validateStatus(arrayUrl)
+       .then((data) => {
+        expect(data).toEqual(linksPrueba);
+      });
   });
-
   it('Valida el estado de los links rechazados', () => {
-      axios.mockImplementation(() => Promise.reject({
-              href: 'https://www.google.com/404', 
-              text: 'https://www.google.com/404',
-              file: 'C:\\Users\\USER\\Desktop\\LIM017-md-links\\prueba3.md',
-              status: 'Este link esta roto AxiosError: Request failed with status code 404',
-              ok: 'fail'
-          }))
-          return validateStatus ([{
-              href: 'https://www.google.com/404', 
-              text: 'https://www.google.com/404',
-              file: 'C:\\Users\\USER\\Desktop\\LIM017-md-links\\prueba3.md',
-              status: 'Este link esta roto AxiosError: Request failed with status code 404',
-              ok: 'fail'
-          }])
-       .then((data) => {expect(data).toEqual(statusFail)
-       })   
-  });
+    const linksError = [
+      {
+        href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
+        text: 'Funciones — bloques de código reutilizables - MDN',
+        file: './archivosPrueba/archivo1/link3.md',
+        status: 'Este link esta roto AxiosError: Request failed with status code 404',
+        ok: 'fail'
+      }
+    ]
+    validateStatus(arrayLinksError)
+    .catch((data) => {
+      expect(data).toEqual(linksError);
+});
+});
+
 });
 
 const arraylinksUrl=[

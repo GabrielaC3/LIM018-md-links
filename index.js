@@ -4,7 +4,6 @@ const {
   getExt,
   pathIsADir,
   findFiles,
-  readDir,
   validateStatus,
   getLinks,
   getLinksOfDir,
