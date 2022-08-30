@@ -220,6 +220,24 @@ const arrayLinks1 = [
   }
 ];
 
+const arrayLinksDirec = [
+  {
+    href: 'https://curriculum.laboratoria.la/es/topics/javascript/05-objects/01-objects',
+    text: 'Objetos en JavaScript',
+    file: 'C:\\Users\\USER\\Laboratoria-Proyectos\\LIM018-md-links\\archivosPrueba\\archivo1\\link3.md'
+  },
+  {
+    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
+    text: 'Funciones — bloques de código reutilizables - MDN',
+    file: 'C:\\Users\\USER\\Laboratoria-Proyectos\\LIM018-md-links\\archivosPrueba\\archivo1\\link3.md'
+  },
+  {
+    href: 'http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175',
+    text: 'Módulos, librerías, paquetes, frameworks',
+    file: 'C:\\Users\\USER\\Laboratoria-Proyectos\\LIM018-md-links\\archivosPrueba\\archivo1\\link3.md'
+  }
+]
+
 describe('mdLinks', () => {
 
   it('is a function', () => {
@@ -231,8 +249,13 @@ describe('mdLinks', () => {
     resultado.then((res)=> expect(res).toStrictEqual('La ruta es inválida')).catch((rej)=>rej);
   });
 
-  it('Retorna mensaje: "La ruta no contiene archivos md"', ()=>{
+  it('Retorna mensaje: "No se encontraron archivos md en el directorio"', ()=>{
     const resultado = mdLinks('./archivosPrueba/archivo2')
+    resultado.then((res)=> expect(res).toStrictEqual('No se encontraron archivos md en el directorio')).catch((rej)=>rej);
+  });
+
+  it('Retorna mensaje: "La ruta no contiene archivos md"', ()=>{
+    const resultado = mdLinks('archivotxt.txt')
     resultado.then((res)=> expect(res).toStrictEqual('La ruta no contiene archivos md')).catch((rej)=>rej);
   });
 
@@ -250,4 +273,10 @@ describe('mdLinks', () => {
     const resultado = mdLinks(('./archivosPrueba/link1.md'), { validate: true });
     resultado.then((res) => expect(res).toStrictEqual(arrayLinks1));
   });
+  
+  it('debe retornar en un array de objetos con href, text y file luego de buscar en un directorio', () => {
+    const resultado = mdLinks(('./archivosPrueba/archivo1'));
+    resultado.then((res) => expect(res).toStrictEqual(arrayLinksDirec));
+  });
+
 });

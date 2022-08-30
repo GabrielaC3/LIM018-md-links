@@ -15,5 +15,8 @@
   "devDependencies": {
     "jest": "^29.0.1",
     "jest-mock-axios": "^4.6.1"
+  },
+  "bin" : {
+    "md-linksG": "cli.js"
   }
 }

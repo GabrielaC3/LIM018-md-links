@@ -9,30 +9,40 @@ const {
   getLinksOfDir,
 } = require('./APIfunctions.js');
 
+/* const rutaAbsoluta = convertAbsolutePath('./archivosPrueba/archivo2');
+console.log(rutaAbsoluta);
+console.log(pathIsADir(rutaAbsoluta));
+const arrayFiles = findFiles(rutaAbsoluta);
+console.log(arrayFiles);
+const links = getLinksOfDir(arrayFiles);
+console.log(links); */
+
 const mdLinks = (path, validateOptions = { validate: false }) => { 
   return new Promise((resolve, reject) => {
     let links = [];
     if (pathExist(path)){
       const pathAbsolute = convertAbsolutePath(path);
-        if(pathIsADir(pathAbsolute)){
-          const arrayFiles = findFiles(pathAbsolute);
-          if (arrayFiles){
-            links= getLinksOfDir(arrayFiles);
-          }
-        }if(getExt(pathAbsolute)==='.md'){
-            links= getLinks(pathAbsolute);
-          }else {
-            reject('La ruta no contiene archivos md');
-          }
-            if (links.length != 0) {
-              if (validateOptions.validate) {
-                resolve(validateStatus(links));
-              } else {
-                resolve(links);
-              }
-            }else{
-              reject('No se encontraron links');
-            }
+      if(pathIsADir(pathAbsolute)){
+        const arrayFiles = findFiles(pathAbsolute);
+        if (arrayFiles.length != 0){
+          links= getLinksOfDir(arrayFiles);
+        }else{
+          reject('No se encontraron archivos md en el directorio');
+        }
+      }else if(getExt(pathAbsolute)==='.md'){
+          links= getLinks(pathAbsolute);
+        }else {
+          reject('La ruta no contiene archivos md');
+        }
+      if (links.length != 0) {
+        if (validateOptions.validate) {
+          resolve(validateStatus(links));
+        } else {
+          resolve(links);
+        }
+      }else{
+        reject('No se encontraron links');
+      }
     }else {
       reject("La ruta es inválida");
     }
@@ -55,7 +65,7 @@ module.exports= { mdLinks };
   .then((res) => console.log(res))
   .catch((err) => console.log(err)); */
 
-/* mdLinks('./archivosPrueba/archivo1', { validate: true })
+/* mdLinks('./archivosPrueba/archivo1')
   .then((res) => console.log(res))
   .catch((err) => console.log(err)); */
 

@@ -75,6 +75,8 @@ const validateStatus = (arrayLinks) => {
   .catch((err) => console.log(err)); */
 
 //Recorre directorios y encuentra archivos md (recursiva)
+//console.log(readDir('./archivosPrueba/archivo2'));
+
 const findFiles = (ruta) => {
   let arrayFiles = [];
     const arrayDirectory = readDir(ruta);

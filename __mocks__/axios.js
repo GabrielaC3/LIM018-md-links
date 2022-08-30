@@ -1,4 +1,4 @@
-const axios = jest.fn(() => Promise.resolve({
+const axios = jest.fn(() => Promise({
 }));
 
 /* axios.get = jest.fn(() => Promise.resolve({
