@@ -7,21 +7,21 @@ const {
   validateStatus,
   getLinks,
   getLinksOfDir,
-} = require('../APIfunctions.js');
+} = require('../src/APIfunctions.js');
 
 const axios = require ('axios');
 jest.mock('axios');
 
-const { mdLinks } = require('../index.js');
+const { mdLinks } = require('../src/index.js');
 
 describe('pathExist', () => {
   it('Debería ser una función', () => {
     expect(typeof pathExist).toBe('function');
   });
-  it('Verifica si la ruta existe', () => {
+  it('Debería verificar si la ruta existe', () => {
     expect(pathExist('./archivosPrueba/link1.md')).toBe(true);
   });
-  it('Verifica que la ruta no existe', () => {
+  it('Debería verificar que la ruta no existe', () => {
     expect(pathExist('./rutafalsa.md')).toBe(false);
   });
 });
@@ -30,10 +30,10 @@ describe('convertAbsolutePath', () => {
   it('Debería ser una función', () => {
     expect(typeof convertAbsolutePath).toBe('function');
   });
-  it('Si recibe una ruta absoluta devuelve la misma ruta', () => {
+  it('Si recibe una ruta absoluta debería devolver la misma ruta', () => {
     expect(convertAbsolutePath('C:/Users/USER/Laboratoria-Proyectos/LIM018-md-links/archivosPrueba')).toEqual('C:/Users/USER/Laboratoria-Proyectos/LIM018-md-links/archivosPrueba');
   });
-  it('Si recibe una ruta relativa la convierte en absoluta', () => {
+  it('Si recibe una ruta relativa la debería convertir en absoluta', () => {
     expect(convertAbsolutePath('prueba.md')).toEqual('C:\\Users\\USER\\Laboratoria-Proyectos\\LIM018-md-links\\prueba.md');
   });
 });
@@ -42,17 +42,17 @@ describe('getExt', () => {
   it('Debería ser una función', () => {
     expect(typeof getExt).toBe('function');
   });
-  it('Averigua la extensión de un archivo', () => {
+  it('Debería averiguar la extensión de un archivo', () => {
     expect(getExt('prueba.md')).toEqual('.md');
   });
 });
 
 describe('pathIsADir', () => {
-  it('Verifica si la ruta es un directorio', () => {
+  it('Debería verificar si la ruta es un directorio', () => {
       expect(pathIsADir('./archivosPrueba')).toBe(true);
   });
 
-  it('Verifica si la ruta no es un directorio', () => {
+  it('Debería verificar si la ruta no es un directorio', () => {
       expect(pathIsADir('prueba.md')).toBe(false);
   });
 });
@@ -67,7 +67,7 @@ describe('findFiles', () => {
   it('Debería ser una función', () => {
     expect(typeof findFiles).toBe('function');
   });
-  it('Recorre directorios y encuentra archivos md', () => {
+  it('Debería recorrer directorios y encontrar archivos md', () => {
     expect(findFiles('./archivosPrueba')).toEqual(arrayFiles);
   });
 });
@@ -89,7 +89,7 @@ describe('getLinks', () => {
   it('Debería ser una función', () => {
     expect(typeof getLinks).toBe('function');
   });
-  it('Obtiene links de un archivo .md', () => {
+  it('Debería obtener links de un archivo .md', () => {
     expect(getLinks('./archivosPrueba/link1.md')).toEqual(arrayUrl);
   });
 });
@@ -136,7 +136,7 @@ describe('getLinksOfDir', () => {
   it('Debería ser una función', () => {
     expect(typeof getLinksOfDir).toBe('function');
   });
-  it('Obtiene links de un array de archivos', () => {
+  it('Debería obtener links de un array de archivos', () => {
     expect(getLinksOfDir(arrayFiles)).toEqual(linksDir);
   });
 });
@@ -150,7 +150,7 @@ const arrayLinksError=[
 ];
 
 describe('validateStatus', () => {
-  it('Valida el estado de los links resueltos', () => {
+  it('Debería validar el estado de los links resueltos', () => {
           const linksPrueba = [
             {
               href: 'https://nodejs.org/es/',   
@@ -172,7 +172,7 @@ describe('validateStatus', () => {
         expect(data).toEqual(linksPrueba);
       });
   });
-  it('Valida el estado de los links rechazados', () => {
+  it('Debería validar el estado de los links rechazados', () => {
     const linksError = [
       {
         href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
@@ -240,41 +240,41 @@ const arrayLinksDirec = [
 
 describe('mdLinks', () => {
 
-  it('is a function', () => {
+  it('Debería ser una función', () => {
     expect(typeof mdLinks).toBe('function');
   });
 
-  it('Retorna mensaje: "La ruta es inválida" ', ()=>{
+  it('Debería retornar el mensaje: "La ruta es inválida" ', ()=>{
     const resultado = mdLinks('rutainvalida.md')
     resultado.then((res)=> expect(res).toStrictEqual('La ruta es inválida')).catch((rej)=>rej);
   });
 
-  it('Retorna mensaje: "No se encontraron archivos md en el directorio"', ()=>{
+  it('Debería retornar el mensaje: "No se encontraron archivos md en el directorio"', ()=>{
     const resultado = mdLinks('./archivosPrueba/archivo2')
     resultado.then((res)=> expect(res).toStrictEqual('No se encontraron archivos md en el directorio')).catch((rej)=>rej);
   });
 
-  it('Retorna mensaje: "La ruta no contiene archivos md"', ()=>{
+  it('Debería retornar el mensaje: "La ruta no contiene archivos md"', ()=>{
     const resultado = mdLinks('archivotxt.txt')
     resultado.then((res)=> expect(res).toStrictEqual('La ruta no contiene archivos md')).catch((rej)=>rej);
   });
 
-  it('Retorna mensaje: "No se encontraron links"', ()=>{
+  it('Debería retornar el mensaje: "No se encontraron links"', ()=>{
     const resultado = mdLinks('prueba.md')
     resultado.then((res)=> expect(res).toStrictEqual('No se encontraron links')).catch((rej)=>rej);
   });
 
-  it('debe retornar en un array de objetos con href, text y file', () => {
+  it('Debería retornar en un array de objetos con href, text y file', () => {
     const resultado = mdLinks(('./archivosPrueba/link1.md'));
     resultado.then((res) => expect(res).toStrictEqual(arraylinksUrl));
   });
 
-  it('debe retornar en un array de objetos con href, text, file, status y ok', () => {
+  it('Debería retornar en un array de objetos con href, text, file, status y ok', () => {
     const resultado = mdLinks(('./archivosPrueba/link1.md'), { validate: true });
     resultado.then((res) => expect(res).toStrictEqual(arrayLinks1));
   });
   
-  it('debe retornar en un array de objetos con href, text y file luego de buscar en un directorio', () => {
+  it('Debería retornar en un array de objetos con href, text y file luego de buscar en un directorio', () => {
     const resultado = mdLinks(('./archivosPrueba/archivo1'));
     resultado.then((res) => expect(res).toStrictEqual(arrayLinksDirec));
   });

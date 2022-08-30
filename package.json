@@ -5,7 +5,7 @@
     "node": ">=16.x"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./src/index.js",
     "test": "jest --coverage"
   },
   "dependencies": {
@@ -17,6 +17,6 @@
     "jest-mock-axios": "^4.6.1"
   },
   "bin" : {
-    "md-linksG": "cli.js"
+    "md-linksG": "./src/cli.js"
   }
 }
