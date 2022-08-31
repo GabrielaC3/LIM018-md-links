@@ -110,11 +110,11 @@ En el caso de ingresar solo la ruta:
 
 ![Ejemplo validate y stats](https://github.com/GabrielaC3/LIM018-md-links/blob/main/images/help.PNG)
 
-##### `sin argumentos
+##### `sin argumentos`
 
 ![Ejemplo sin argumentos](https://github.com/GabrielaC3/LIM018-md-links/blob/main/images/sinArgumentos.PNG)
 
-## 6. Autor
+## 6. Developer
 
 Gabriela Córdova
 
