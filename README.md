@@ -7,7 +7,7 @@
 * [3. Instrucciones de Instalación](#3-instrucciones-de-instalación)
 * [4. Documentación](#4-documentación)
 * [5. Ejemplos](#5-ejemplos)
-* [6. Autor](#6-autor)
+* [6. Developer](#6-developer)
 
 ***
 
