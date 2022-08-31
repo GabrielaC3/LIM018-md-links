@@ -32,6 +32,7 @@ const getExt = (file) => path.extname(file);
 //Verifica si la ruta es un directorio
 const pathIsADir = (ruta) => fs.lstatSync(ruta).isDirectory();
 
+//Extraer links de un archivo
 const getLinks = (file) => {
   const renderer = new marked.Renderer();
   let arrayOnlyUrl = [];
@@ -95,6 +96,7 @@ const findFiles = (ruta) => {
 //const arrayFiles = findFiles('./archivosPrueba');
 //console.log(arrayFiles);
 
+//Extraer links de un directorio
 const getLinksOfDir = (arrayFiles) => {
   const linksObtenidos = [];
   for(let i=0; i<arrayFiles.length; i++){
