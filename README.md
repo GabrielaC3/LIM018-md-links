@@ -2,9 +2,9 @@
 
 ## Índice
 
-* [1. Descripción del módulo](#1-descripción del módulo)
-* [2. Diagrama de Flujo](#2-diagrama de flujo)
-* [3. Instrucciones de instalación](#3-instrucciones de instalación)
+* [1. Descripción del módulo](#1-descripción-del-módulo)
+* [2. Diagrama de Flujo](#2-diagrama-de-flujo)
+* [3. Instrucciones de Instalación](#3-instrucciones-de-instalación)
 * [4. Documentación](#4-documentación)
 * [5. Ejemplos](#5-ejemplos)
 * [6. Autor](#6-autor)
@@ -26,7 +26,7 @@ Diagrama de Flujo de CLI md-links
 ![Diagrama de Flujo de CLI md-links](https://github.com/GabrielaC3/LIM018-md-links/blob/main/images/Diagrama%20de%20Flujo%20de%20CLI%20md-links.png)
 
 
-## 3. Instrucciones de instalación
+## 3. Instrucciones de Instalación
 
 Para instalar la librería debe ejecutar lo siguiente:
 
