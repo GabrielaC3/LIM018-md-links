@@ -13,7 +13,7 @@
 
 ## 1. Descripción del módulo
 
-md-links-gabycr es una librería desarrollada en JavaScript y node.js que lee y analiza archivos en formato Markdown, para verificar los links que contengan y devuelve algunas estadísticas.
+gabrielac3-md-links es una librería desarrollada en JavaScript y node.js que lee y analiza archivos en formato Markdown, para verificar los links que contengan y devuelve algunas estadísticas.
 
 ## 2. Diagrama de Flujo
 
