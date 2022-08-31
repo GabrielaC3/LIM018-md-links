@@ -30,7 +30,7 @@ Diagrama de Flujo de CLI md-links
 
 Para instalar la librería debe ejecutar lo siguiente:
 
-``npm i md-links-gabycr``
+``npm i gabrielac3-md-links``
 
 
 ## 4. Documentación
