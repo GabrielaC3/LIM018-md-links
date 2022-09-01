@@ -150,7 +150,7 @@ const arrayLinksError=[
 ];
 
 describe('validateStatus', () => {
-  it('Debería validar el estado de los links resueltos', () => {
+  it('Debería validar el estado de los links resueltos', (done) => {
           const linksPrueba = [
             {
               href: 'https://nodejs.org/es/',   
@@ -168,11 +168,14 @@ describe('validateStatus', () => {
             }
           ];
     validateStatus(arrayUrl)
-       .then((data) => {
+      .then((data) => {
         expect(data).toEqual(linksPrueba);
+        done();
       });
   });
-  it('Debería validar el estado de los links rechazados', () => {
+  it('Debería validar el estado de los links rechazados', (done) => {
+    axios.get.mockRejectedValueOnce('AxiosError: Request failed with status code 404');
+
     const linksError = [
       {
         href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
@@ -183,9 +186,10 @@ describe('validateStatus', () => {
       }
     ]
     validateStatus(arrayLinksError)
-    .catch((data) => {
+    .then((data) => {
       expect(data).toEqual(linksError);
-});
+      done();
+    });
 });
 
 });
@@ -244,39 +248,46 @@ describe('mdLinks', () => {
     expect(typeof mdLinks).toBe('function');
   });
 
-  it('Debería retornar el mensaje: "La ruta es inválida" ', ()=>{
+  it('Debería retornar el mensaje: "La ruta es inválida" ', (done)=>{
     const resultado = mdLinks('rutainvalida.md')
     resultado.then((res)=> expect(res).toStrictEqual('La ruta es inválida')).catch((rej)=>rej);
+    done();
   });
 
-  it('Debería retornar el mensaje: "No se encontraron archivos md en el directorio"', ()=>{
+  it('Debería retornar el mensaje: "No se encontraron archivos md en el directorio"', (done)=>{
     const resultado = mdLinks('./archivosPrueba/archivo2')
     resultado.then((res)=> expect(res).toStrictEqual('No se encontraron archivos md en el directorio')).catch((rej)=>rej);
+    done();
   });
 
-  it('Debería retornar el mensaje: "La ruta no contiene archivos md"', ()=>{
+  it('Debería retornar el mensaje: "La ruta no contiene archivos md"', (done)=>{
     const resultado = mdLinks('archivotxt.txt')
     resultado.then((res)=> expect(res).toStrictEqual('La ruta no contiene archivos md')).catch((rej)=>rej);
+    done();
   });
 
-  it('Debería retornar el mensaje: "No se encontraron links"', ()=>{
+  it('Debería retornar el mensaje: "No se encontraron links"', (done)=>{
     const resultado = mdLinks('prueba.md')
     resultado.then((res)=> expect(res).toStrictEqual('No se encontraron links')).catch((rej)=>rej);
+    done();
   });
 
-  it('Debería retornar en un array de objetos con href, text y file', () => {
+  it('Debería retornar en un array de objetos con href, text y file', (done) => {
     const resultado = mdLinks(('./archivosPrueba/link1.md'));
     resultado.then((res) => expect(res).toStrictEqual(arraylinksUrl));
+    done();
   });
 
-  it('Debería retornar en un array de objetos con href, text, file, status y ok', () => {
+  it('Debería retornar en un array de objetos con href, text, file, status y ok', (done) => {
     const resultado = mdLinks(('./archivosPrueba/link1.md'), { validate: true });
     resultado.then((res) => expect(res).toStrictEqual(arrayLinks1));
+    done();
   });
   
-  it('Debería retornar en un array de objetos con href, text y file luego de buscar en un directorio', () => {
+  it('Debería retornar en un array de objetos con href, text y file luego de buscar en un directorio', (done) => {
     const resultado = mdLinks(('./archivosPrueba/archivo1'));
     resultado.then((res) => expect(res).toStrictEqual(arrayLinksDirec));
+    done();
   });
 
 });

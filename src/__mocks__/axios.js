@@ -16,10 +16,10 @@ axios.get = jest.fn(() => new Promise((resolve, reject) => {
         status: 200,
         ok: 'ok'
     })
-    reject({
+   /*  reject({
         status: 'Este link esta roto AxiosError: Request failed with status code 404',
         ok: 'fail'
-    })
+    }) */
     }));
 
 module.exports = axios;

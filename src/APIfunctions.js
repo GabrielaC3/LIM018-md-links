@@ -21,7 +21,7 @@ const convertAbsolutePath = (ruta) => {
   if (path.isAbsolute(ruta)){
       return ruta;
     }else{
-      if(path.resolve(ruta) == path.normalize(ruta));
+      // if(path.resolve(ruta) == path.normalize(ruta));
       return path.resolve(ruta);
     }
 };
@@ -56,19 +56,20 @@ const arrayLinks = getLinks('./archivosPrueba/archivo1/link3.md');
 //console.log(arrayLinks);
 
 const validateStatus = (arrayLinks) => {
-  return Promise.all( arrayLinks.map((link) => 
-   axios.get(link.href)
+  const promises = arrayLinks.map((link) => 
+    axios.get(link.href)
     .then((resolve)=>{
       link.status = resolve.status,
       link.ok= 'ok';
       return link;
         })
-   .catch((error) => {
+    .catch((error) => {
       link.status = 'Este link esta roto '+ error;
       link.ok = 'fail';
       return link;    
     })
-  ))
+  )
+  return Promise.all(promises);
 }
 
 /* validateStatus(arrayLinks)
