@@ -52,7 +52,7 @@ const getLinks = (file) => {
   return arrayOnlyUrl;
 }
 
-const arrayLinks = getLinks('./archivosPrueba/archivo1/link3.md');
+//const arrayLinks = getLinks('./archivosPrueba/archivo1/link3.md');
 //console.log(arrayLinks);
 
 const validateStatus = (arrayLinks) => {
