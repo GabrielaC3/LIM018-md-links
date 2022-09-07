@@ -49,7 +49,7 @@ const mdLinks = (path, validateOptions = { validate: false }) => {
   });
 }
 
-module.exports= { mdLinks };
+module.exports = { mdLinks };
 
 //'C:/Users/USER/Laboratoria-Proyectos/LIM018-md-links/archivosPrueba'
 
